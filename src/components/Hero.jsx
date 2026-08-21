@@ -2,12 +2,12 @@ import { useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import Typed from 'typed.js';
+import Button from "./Button";
 
 function Hero() {
-
     const typedElement = useRef(null);
-    useEffect(() => {
 
+    useEffect(() => {
         const typed = new Typed(typedElement.current, {
             strings: [
                 'modern learning platform',
@@ -25,16 +25,15 @@ function Hero() {
         return () => {
             typed.destroy();
         };
-
     }, []);
 
     return (
-        <section id="hero" className="flex items-center justify-around px-20 py-5 mt-25 max-[992px]:flex-wrap">
+        <section id="hero" className="flex pb-5 items-center justify-around gap-5 max-[1200px]:px-10 max-[992px]:flex-wrap max-[992px]:justify-center max-[992px]:gap-7 max-[992px]:px-10">
 
             {/* LEFT CONTAINER */}
-            <div>
+            <div className="max-[992px]:w-full max-[992px]:text-center">
 
-                <h1 className="title text-[56px] font-bold leading-[1.2] text-primary">
+                <h1 className="title text-[56px] font-bold leading-[1.2] text-primary max-[1200px]:text-[48px] max-[992px]:text-[44px] max-[576px]:text-[38px]">
                     Learn Skills
                     <br />
                     <span className="text-secondary">
@@ -42,33 +41,30 @@ function Hero() {
                     </span>
                 </h1>
 
-                <p className="text-xl leading-[1.4]">
-                    TuLearn is a{' '}
-                    <span ref={typedElement} className="text-secondary font-semibold"></span>
+                <p className="mt-3 text-xl leading-[1.4] max-[1200px]:text-lg max-[576px]:text-base">
+                    TuLearn is{' '}
+                    <span ref={typedElement} className="font-semibold text-secondary"></span>
                     <br />
                     for everyone, everywhere.
                 </p>
 
-                <div className="mt-5 flex flex-wrap justify-around gap-2.5">
+                <div className="mt-5 flex flex-row flex-wrap gap-2.5 max-[992px]:justify-center">
 
-                    <a href="#" className="rounded-[10px] border border-primary bg-primary px-5 py-2.5 text-white no-underline transition-all ease-in duration-100 hover:border-gray-400/60 hover:bg-transparent hover:font-bold hover:text-black">
-                        Explore Courses
-                    </a>
-
-                    <a href="#" className="flex items-center rounded-[10px] border border-gray-400/60 px-5 py-2.5 font-bold text-black no-underline transition-all ease-in duration-100 hover:border-primary hover:bg-primary hover:font-normal hover:text-white">
+                    <Button href="#" buttonName="Explore Course" className="rounded-xl px-5 py-2.5 border-primary bg-primary text-white hover:border-gray-400/60 hover:bg-transparent hover:text-black" />
+                    
+                    <Button href="#" buttonName="How It Works" className="rounded-xl px-5 py-2.5 border-secondary text-secondary hover:bg-secondary hover:text-white">
                         <FontAwesomeIcon icon={faPlay} className="mr-1" />
-                        How It Works
-                    </a>
+                    </Button>
 
                 </div>
 
             </div>
 
             {/* RIGHT CONTAINER */}
-            <img src="/assets/hero-img.png" alt="Education" className="hero-image w-full max-w-187.5 max-[1200px]:max-w-137.5 max-[992px]:mt-7.5" />
+            <img src="/assets/hero-img.png" alt="Education" className="hero-image w-full max-w-187.5 max-[1200px]:max-w-137.5 max-[992px]:mt-7.5 max-[992px]:max-w-150 max-[576px]:max-w-full" />
 
         </section>
     );
 }
 
-export default Hero;
+export default Hero
