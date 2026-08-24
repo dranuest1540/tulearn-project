@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import Typed from 'typed.js';
 import Button from "./Button";
-import HeroImage from "../../public/assets/hero-img.png";
 
 function Hero() {
     const typedElement = useRef(null);
@@ -62,7 +61,7 @@ function Hero() {
             </div>
 
             {/* RIGHT CONTAINER */}
-            <img src={HeroImage} alt="Education" className="hero-image w-full max-w-187.5 max-[1200px]:max-w-137.5 max-[992px]:mt-7.5 max-[992px]:max-w-150 max-[576px]:max-w-full" />
+            <img src={`${import.meta.env.BASE_URL}assets/hero-img.png`} alt="Education" className="hero-image w-full max-w-187.5 max-[1200px]:max-w-137.5 max-[992px]:mt-7.5 max-[992px]:max-w-150 max-[576px]:max-w-full" />
 
         </section>
     );
