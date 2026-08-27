@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 import tailwind from '@tailwindcss/vite'
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [react(), tailwind()],
-  base: '/tulearn-project/',
-})
+  base: mode === 'netlify' ? '/' : '/tulearn-project/',
+}))
