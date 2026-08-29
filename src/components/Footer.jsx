@@ -36,7 +36,7 @@ function Footer() {
 
                 <div className="flex gap-1 pt-2.5 text-[26px]">
                     {FOOTER_ICONS.map((item) => (
-                        <FooterLink key={item.icon} href={item.href} icon={item.icon} />
+                        <FooterLink key={item.href} href={item.href} icon={item.icon} />
                     ))}
                 </div>
 

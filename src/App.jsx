@@ -1,24 +1,16 @@
-import Navbar from './components/Navbar'
-import Hero from "./components/Hero"
-import About from "./components/About"
-import Categories from "./components/Categories";
-import Popular from './components/Popular';
-import Footer from './components/Footer';
-import Main from "./layouts/Container";
+import { Route, Routes } from "react-router-dom"
+import Home from "./pages/Home";
+import Login from "./pages/login";
+import Register from "./pages/register";
 
 function App() {
 
     return (
-        <>
-            <Navbar />
-            <Main>
-                <Hero />
-                <About />
-                <Categories />
-                <Popular />
-            </Main>
-            <Footer />
-        </>
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+        </Routes>
     )
 }
 

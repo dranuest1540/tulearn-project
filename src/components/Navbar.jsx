@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 import Button from "./Button";
 import Search from "./Search";
-import NavLink from "./NavLink"
+import NavTo from "./NavTo"
 import Logo from "./Logo";
 
 function Navbar() {
@@ -39,7 +39,7 @@ function Navbar() {
                 <div className={`${isOpen ? 'flex' : 'hidden'} lg:flex max-[992px]:w-full`}>
                     <ul className="flex gap-6.25 font-bold text-black list-none m-0 p-0 max-[992px]:w-full max-[992px]:flex-col max-[992px]:gap-0 max-[992px]:text-start max-[992px]:py-5 max-[992px]:bg-white max-[992px]:border-t max-[992px]:border-[#ddd]">
                         {navLinks.map((navLink) => (
-                            <NavLink key={navLink.nama} href={navLink.href} linkName={navLink.nama} />
+                            <NavTo key={navLink.nama} href={navLink.href} linkName={navLink.nama} />
                         ))}
                     </ul>
                 </div>
@@ -51,10 +51,10 @@ function Navbar() {
                     <Search />
 
                     {/* LOGIN */}
-                    <Button href="#" buttonName={`Log In`} className={`rounded-md border-secondary text-secondary hover:text-white hover:bg-secondary`} />
+                    <Button to="/login" buttonName={`Log In`} className={`rounded-md border-secondary text-secondary hover:text-white hover:bg-secondary`} />
 
                     {/* SIGN UP */}
-                    <Button href="#" buttonName={`Sign Up`} className={`rounded-md border-primary bg-primary text-white hover:text-primary hover:bg-transparent`} />
+                    <Button to="/register" buttonName={`Sign Up`} className={`rounded-md border-primary bg-primary text-white hover:text-primary hover:bg-transparent`} />
 
                 </div>
 
