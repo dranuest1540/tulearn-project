@@ -2,10 +2,18 @@ import AuthBackground from "../layouts/AuthBackground"
 import { AUTH_CONTENT } from "../constant/authHero";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faEye, faLock, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { loginUser } from "../services/authService";
+import { useAuth } from "../context/useAuth";
 
 function Login() {
+    // NAVIGATION
+    const navigate = useNavigate();
+
+    // AUTH
+    const { login } = useAuth();
+
     // PASSWORD HIDDEN/VISIBLE
     const [isVisible, setIsVisible] = useState(false);
 
@@ -13,25 +21,98 @@ function Login() {
         setIsVisible(!isVisible);
     };
 
+    // FORM DATA 
+    const [username, setUsername] = useState(""); 
+    const [password, setPassword] = useState("");
+
+    // LOADING 
+    const [loading, setLoading] = useState(false);
+
+    // ERROR 
+    const [error, setError] = useState("");
+
+    // LOGIN SUBMIT
+    const handleLogin = async (event) => { 
+        event.preventDefault(); 
+        
+        setError(""); 
+        setLoading(true); 
+        
+        try { 
+            const data = await loginUser(username, password); 
+            console.log("Login Success:", data); 
+            
+            // SIMPAN DATA LOGIN MELALUI AUTH CONTEXT
+            login(data);
+            
+            // REDIRECT KE DASHBOARD SESUAI ROLE 
+            if (data.username === "emilys") {
+                navigate("/admin");
+            } else {
+                navigate("/student")
+            }
+
+        } catch (error) { 
+            setError(error.message); 
+        } finally { 
+            setLoading(false); 
+        } 
+    };
+
     return (
         <AuthBackground heroData={AUTH_CONTENT.login}>
 
             {/* FORMS */}
-            <form action="" method="post" className="mt-10">
-                <label htmlFor="email" className="font-bold block mb-2">Email Address</label>
+            <form onSubmit={handleLogin} className="mt-10">
+                
+                {/* ERROR MESSAGE */} 
+                {error && ( 
+                    <div className="mb-5 bg-red-100 text-red-600 px-4 py-3 rounded-lg"> 
+                        {error} 
+                    </div> 
+                )}
+                
+                {/* USERNAME */}
+                <label htmlFor="username" className="font-bold block mb-2">Username</label>
                 <div className="relative">
                     <FontAwesomeIcon icon={faEnvelope} className="absolute top-[35%] left-4 text-gray-400" />
-                    <input type="email" id="email" className="w-full border border-black/30 rounded-lg py-3 pl-12 pr-4 transition duration-200 focus:outline-0 focus:ring-4 focus:ring-blue-400" placeholder="Enter your email" autoComplete="email" />
+                    <input 
+                        type="text" 
+                        id="username" 
+                        value={username} 
+                        onChange={(event) =>
+                            setUsername(event.target.value)
+                        }
+                        className="w-full border border-black/30 rounded-lg py-3 pl-12 pr-4 transition duration-200 focus:outline-0 focus:ring-4 focus:ring-blue-400" 
+                        placeholder="Username" 
+                        autoComplete="username" 
+                        required
+                    />
                 </div>
+                
+                {/* PASSWORD */}
                 <label htmlFor="password" className="font-bold block mt-5 mb-2">Password</label>
                 <div className="relative">
                     <FontAwesomeIcon icon={faLock} className="absolute top-[35%] left-4 text-gray-400" />
-                    <input type={isVisible ? "text" : "password"} id="password" className="w-full border border-black/30 rounded-lg py-3 pl-12 pr-12 transition duration-200 focus:outline-0 focus:ring-4 focus:ring-blue-400" placeholder="Enter your password" autoComplete="current-password" />
+                    <input 
+                        type={isVisible ? "text" : "password"} 
+                        id="password"
+                        value={password}
+                        onChange={(event) =>
+                            setPassword(event.target.value)
+                        } 
+                        className="w-full border border-black/30 rounded-lg py-3 pl-12 pr-12 transition duration-200 focus:outline-0 focus:ring-4 focus:ring-blue-400" 
+                        placeholder="Password" 
+                        autoComplete="current-password"
+                        required 
+                    />
+                    
                     <button id="togglePassword" type="button" onClick={togglePassword} className="absolute top-[30%] right-4 text-gray-400 hover:text-blue-600">
                         <FontAwesomeIcon icon={isVisible ? faEyeSlash : faEye} />
                     </button>
                 </div>
 
+                {/* REMEMBER ME */}
                 <div className="flex justify-between items-center mt-5">
                     <label htmlFor="checkbox" className="text-sm flex gap-2">
                         <input type="checkbox" id="checkbox" className="accent-secondary" />
@@ -40,7 +121,10 @@ function Login() {
                     <a href="#" className="text-sm text-blue-500 hover:text-blue-300 font-bold">Forgot password?</a>
                 </div>
 
-                <button type="submit" className="w-full bg-secondary hover:bg-secondary-800 py-2 rounded-lg text-white mt-5">Login</button>
+                {/* LOGIN BUTTON */}
+                <button type="submit" disabled={loading} className="w-full bg-secondary hover:bg-secondary-800 py-2 rounded-lg text-white mt-5">
+                    {loading ? "Logging in..." : "Login"}
+                </button>
             </form>
 
             {/* AUTHENTICATION */}

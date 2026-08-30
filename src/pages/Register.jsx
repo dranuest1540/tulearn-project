@@ -24,10 +24,10 @@ function Register() {
                     <input type="text" id="name" className="w-full border border-black/40 rounded-lg py-3 pl-12 pr-4 transition duration-200 focus:outline-0 focus:ring-4 focus:ring-blue-400" placeholder="Enter your name" />
                 </div>
 
-                <label htmlFor="email" className="font-bold block mt-2 mb-2">Email Address</label>
+                <label htmlFor="username" className="font-bold block mt-2 mb-2">Username</label>
                 <div className="relative">
                     <FontAwesomeIcon icon={faEnvelope} className="absolute top-[35%] left-4 text-gray-400" />
-                    <input type="email" id="email" className="w-full border border-black/30 rounded-lg py-3 pl-12 pr-4 transition duration-200 focus:outline-0 focus:ring-4 focus:ring-blue-400" placeholder="Enter your email" />
+                    <input type="text" id="username" className="w-full border border-black/30 rounded-lg py-3 pl-12 pr-4 transition duration-200 focus:outline-0 focus:ring-4 focus:ring-blue-400" placeholder="Enter your username" autoComplete="username" />
                 </div>
 
                 <label htmlFor="password" className="font-bold block mt-2 mb-2">Password</label>
