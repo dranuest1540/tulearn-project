@@ -2,22 +2,27 @@ import { useState } from "react";
 import { AuthContext } from "./AuthContext";
 
 export function AuthProvider({ children }) {
+    // USER
     const [user, setUser] = useState(() => {
         const savedUser = localStorage.getItem("user");
 
         return savedUser ? JSON.parse(savedUser) : null;
     });
 
+    // ACCESS TOKEN
     const [accessToken, setAccessToken] = useState(() => {
-        return localStorage.getItem("accessToken");
+        return localStorage.getItem("accessToken") || null;
     });
 
+    // ROLE
     const [role, setRole] = useState(() => {
-        return localStorage.getItem("accessToken");
+        return localStorage.getItem("role") || null;
     });
 
+    // AUTH STATUS
     const isAuthenticated = !!accessToken;
 
+    // LOGIN
     const login = (data) => {
         // USERNAME FOR ADMIN : emilys && emilyspass
         const userRole = data.username === "emilys" ? "admin" : "user";
@@ -44,16 +49,7 @@ export function AuthProvider({ children }) {
     };
 
     return (
-        <AuthContext.Provider
-            value={{
-                user,
-                accessToken,
-                role,
-                isAuthenticated,
-                login,
-                logout,
-            }}
-        >
+        <AuthContext.Provider value={{ user, accessToken, role, isAuthenticated, login, logout }}>
             {children}
         </AuthContext.Provider>
     );

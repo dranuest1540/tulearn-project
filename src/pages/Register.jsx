@@ -81,7 +81,7 @@ function Register() {
             <nav className="mt-10 text-center">
                 <p className="text-base">
                     Already have an account?
-                    <a href="/login" className="text-blue-500 hover:text-blue-300 font-bold">Login</a>
+                    <a href="/login" className="text-blue-500 hover:text-blue-300 font-bold"> Login</a>
                 </p>
             </nav>
 

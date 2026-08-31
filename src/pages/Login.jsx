@@ -47,9 +47,9 @@ function Login() {
             
             // REDIRECT KE DASHBOARD SESUAI ROLE 
             if (data.username === "emilys") {
-                navigate("/admin");
+                navigate("/admin/dashboard");
             } else {
-                navigate("/student")
+                navigate("/student/dashboard")
             }
 
         } catch (error) { 
